@@ -28,21 +28,33 @@ public class PlayerController : MonoBehaviour {
     void inputCheck() {
         if (Input.GetKeyDown(KeyCode.A)) {
             _left = true;
-        } else if (Input.GetKeyDown(KeyCode.D)) {
+        }
+
+        if (Input.GetKeyDown(KeyCode.D)) {
             _right = true;
-        } else if (Input.GetKeyDown(KeyCode.W)) {
+        }
+
+        if (Input.GetKeyDown(KeyCode.W)) {
             _up = true;
-        } else if (Input.GetKeyDown(KeyCode.S)) {
+        }
+
+        if (Input.GetKeyDown(KeyCode.S)) {
             _down = true;
         }
 
         if (Input.GetKeyUp(KeyCode.A)) {
             _left = false;
-        } else if (Input.GetKeyUp(KeyCode.D)) {
+        }
+
+        if (Input.GetKeyUp(KeyCode.D)) {
             _right = false;
-        } else if (Input.GetKeyUp(KeyCode.W)) {
+        }
+
+        if (Input.GetKeyUp(KeyCode.W)) {
             _up = false;
-        } else if (Input.GetKeyUp(KeyCode.S)) {
+        }
+
+        if (Input.GetKeyUp(KeyCode.S)) {
             _down = false;
         }
     }
@@ -59,22 +71,28 @@ public class PlayerController : MonoBehaviour {
         }
 
         if (_left) {
-            force.x = -FORCE * delta;
+            force.x += -FORCE * delta;
         }
 
         if(_right) {
-            force.x = FORCE * delta;
+            force.x += FORCE * delta;
         }
 
         if(_up) {
-            force.y = FORCE * delta;
+            force.y += FORCE * delta;
         }
 
         if(_down) {
-            force.y = -FORCE * delta;
+            force.y += -FORCE * delta;
         }
 
         _rb.AddForce(force);
-        sr.flipX = _rb.velocity.x < 0;
+
+        if(_rb.velocity.x > 0) {
+            sr.flipX = false;
+        } else if(_rb.velocity.x < 0) {
+            sr.flipX = true;
+        }
+       
     }
 }
