@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class EatSheep : MonoBehaviour {
 
+	private bool isCollidingSheep = false;
 	private string corpseSpriteNames = "Sprites/sheepcorpses";
 	private Sprite[] sprites;
 
@@ -16,13 +17,18 @@ public class EatSheep : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		isCollidingSheep = false;
 	}
 		
 	void OnTriggerEnter2D(Collider2D other)
 	{
-		Debug.Log(other.gameObject.tag);
 		if (other.gameObject.tag == "Sheep") {
+			if (isCollidingSheep) {
+				return;
+			}
+
+			isCollidingSheep = true;
+				
 			// Eat the sheep (switch spite, and other handling)
 			other.enabled = false;
 			other.gameObject.GetComponent<SpriteRenderer>().sprite = sprites[Random.Range(0, sprites.Length)];
