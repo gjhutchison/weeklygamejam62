@@ -113,6 +113,60 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &115183177
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 115183178}
+  - component: {fileID: 115183179}
+  m_Layer: 0
+  m_Name: NomCollider
+  m_TagString: SheepEatCollider
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &115183178
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 115183177}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 722119888}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &115183179
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 115183177}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.059661686, y: -0.111866}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.56, y: 2.56}
+    newSize: {x: 2.56, y: 2.56}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.7545668, y: 1.6203275}
+  m_EdgeRadius: 0
 --- !u!1001 &212581133
 Prefab:
   m_ObjectHideFlags: 0
@@ -152,29 +206,7 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 61410131731320168, guid: 4463b9a448753584da96fe8d7030d6c8,
-        type: 2}
-      propertyPath: m_Offset.x
-      value: 0.016155124
-      objectReference: {fileID: 0}
-    - target: {fileID: 61410131731320168, guid: 4463b9a448753584da96fe8d7030d6c8,
-        type: 2}
-      propertyPath: m_Size.x
-      value: 0.68643975
-      objectReference: {fileID: 0}
-    - target: {fileID: 61410131731320168, guid: 4463b9a448753584da96fe8d7030d6c8,
-        type: 2}
-      propertyPath: m_Offset.y
-      value: -0.27194262
-      objectReference: {fileID: 0}
-    - target: {fileID: 61410131731320168, guid: 4463b9a448753584da96fe8d7030d6c8,
-        type: 2}
-      propertyPath: m_Size.y
-      value: 1.2675872
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 61761918116195746, guid: 4463b9a448753584da96fe8d7030d6c8, type: 2}
-    - {fileID: 114249356121006958, guid: 4463b9a448753584da96fe8d7030d6c8, type: 2}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4463b9a448753584da96fe8d7030d6c8, type: 2}
   m_IsPrefabAsset: 0
 --- !u!4 &212581134 stripped
@@ -187,72 +219,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1112830881290806, guid: 4463b9a448753584da96fe8d7030d6c8,
     type: 2}
   m_PrefabInternal: {fileID: 212581133}
---- !u!1 &472025930
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 472025931}
-  - component: {fileID: 472025932}
-  - component: {fileID: 472025933}
-  m_Layer: 0
-  m_Name: SheepEater
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &472025931
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 472025930}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 212581134}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &472025932
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 472025930}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 322d393c9dc30ef43b211d0c62612012, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!61 &472025933
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 472025930}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.0073201656, y: -0.029280663}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.4538426, y: 1.936966}
-  m_EdgeRadius: 0
 --- !u!1 &722119887
 GameObject:
   m_ObjectHideFlags: 0
@@ -262,11 +228,10 @@ GameObject:
   m_Component:
   - component: {fileID: 722119888}
   - component: {fileID: 722119889}
-  - component: {fileID: 722119890}
   - component: {fileID: 722119891}
   - component: {fileID: 722119892}
   m_Layer: 0
-  m_Name: sheep
+  m_Name: Sheep
   m_TagString: Sheep
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -281,7 +246,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.2281057, y: 0.2816861, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 115183178}
   m_Father: {fileID: 2113134529}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -331,31 +297,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &722119890
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 722119887}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.059661686, y: -0.111866}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.56, y: 2.56}
-    newSize: {x: 2.56, y: 2.56}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.7545668, y: 1.6203275}
-  m_EdgeRadius: 0
 --- !u!50 &722119891
 Rigidbody2D:
   serializedVersion: 4

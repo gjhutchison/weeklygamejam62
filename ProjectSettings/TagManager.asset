@@ -7,6 +7,7 @@ TagManager:
   - Sheep
   - Bush
   - Tree
+  - SheepEatCollider
   layers:
   - Default
   - TransparentFX

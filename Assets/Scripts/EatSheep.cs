@@ -22,16 +22,22 @@ public class EatSheep : MonoBehaviour {
 		
 	void OnTriggerEnter2D(Collider2D other)
 	{
-		if (other.gameObject.tag == "Sheep") {
+		if (other.gameObject.tag == "SheepEatCollider") {
 			if (isCollidingSheep) {
 				return;
 			}
 
 			isCollidingSheep = true;
-				
-			// Eat the sheep (switch spite, and other handling)
+
+			// Disable the sheep eating collider
 			other.enabled = false;
-			other.gameObject.GetComponent<SpriteRenderer>().sprite = sprites[Random.Range(0, sprites.Length)];
+
+			// Swap the sprite to a random corpse sprite
+			GameObject sheepObj = other.transform.parent.gameObject;
+			sheepObj.GetComponent<SpriteRenderer>().sprite = sprites[Random.Range(0, sprites.Length)];
+
+			// Disable physics collisions on parent
+			sheepObj.GetComponent<BoxCollider2D> ().enabled = false;
 		}
 	}
 }
