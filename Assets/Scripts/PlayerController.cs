@@ -52,21 +52,26 @@ public class PlayerController : MonoBehaviour {
         Vector2 force = new Vector2();
         inputCheck();
 
+        float delta = Time.deltaTime;
+
+        if(delta > 1.0f / 60.0f) {
+            delta = 1.0f / 60.0f;
+        }
 
         if (_left) {
-            force.x = -FORCE * Time.deltaTime;
+            force.x = -FORCE * delta;
         }
 
         if(_right) {
-            force.x = FORCE * Time.deltaTime;
+            force.x = FORCE * delta;
         }
 
         if(_up) {
-            force.y = FORCE * Time.deltaTime;
+            force.y = FORCE * delta;
         }
 
         if(_down) {
-            force.y = -FORCE * Time.deltaTime;
+            force.y = -FORCE * delta;
         }
 
         _rb.AddForce(force);
