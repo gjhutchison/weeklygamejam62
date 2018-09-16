@@ -12,19 +12,28 @@ public class ShepardController : MonoBehaviour {
     private ShepardState _state;
 
     private Vector2 _target;
+    private Vector2 _startPosition;
+
+    private float _currentSearchDelay;
+    private int _currentSearchAction;
 
     private readonly static float FORCE = 675;
 
     public enum ShepardState {
         IDLE,
         CHASE,
-        INVESTIGATE
+        INVESTIGATE,
+        SEARCH,
+        WALK,
     };
 
 	// Use this for initialization
 	void Start () {
         _state = ShepardState.IDLE;
-	}
+        _currentSearchDelay = 0;
+        _startPosition = new Vector2(transform.position.x, transform.position.y);
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -34,6 +43,9 @@ public class ShepardController : MonoBehaviour {
                 break;
             case ShepardState.INVESTIGATE:
                 doInvestigate();
+                break;
+            case ShepardState.SEARCH:
+                doSearch();
                 break;
         }
 	}
@@ -46,6 +58,42 @@ public class ShepardController : MonoBehaviour {
 
     private void doInvestigate() {
         moveTowardsPoint(_target);
+
+        if(Vector2.Distance(transform.position, _target) < 0.5f) {
+            setSearching();
+        }
+    }
+
+    private void doSearch() {
+
+        if (_currentSearchDelay >= 0) {
+            _currentSearchDelay -= Time.deltaTime;
+        }
+        else {
+            Vector2 point = Random.insideUnitCircle * 4;
+
+            point.x += transform.position.x;
+            point.y += transform.position.y;
+
+            _currentSearchAction = Random.Range(0, 2);
+            _target = point;
+
+            _currentSearchDelay = Random.Range(0.5f, 1.0f);
+        }
+
+
+        if(_currentSearchAction == 0) {
+            _visionCone.GetComponent<ShepardVisionCone>().setLookTarget(_target);
+            _spriteBobber.deactivate();
+        } else if(_currentSearchAction == 1) {
+            moveTowardsPoint(_target);
+            _visionCone.GetComponent<ShepardVisionCone>().setLookTarget(_target);
+            if(Vector2.Distance(transform.position, _target) < 0.1) {
+                _currentSearchDelay = -1;
+            }
+        }
+
+
     }
 
     private void moveTowardsPoint(Vector2 target) {
@@ -70,6 +118,11 @@ public class ShepardController : MonoBehaviour {
     public void setInvestigate(Vector2 targetPos) {
         _state = ShepardState.INVESTIGATE;
         _target = new Vector2(targetPos.x, targetPos.y);
+    }
+
+    public void setSearching() {
+        _state = ShepardState.SEARCH;
+        _currentSearchDelay = -1;
     }
 
     public ShepardState getState() {

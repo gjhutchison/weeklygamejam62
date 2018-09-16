@@ -48,8 +48,6 @@ public class ShepardVisionCone : MonoBehaviour {
             _currentAngle += 360;
         }
 
-        print(_currentAngle);
-
         if(_currentAngle > 90.0f && _currentAngle < 270.0f) {
             _shepardSpriteRenderer.flipX = true;
         } else {
@@ -76,6 +74,10 @@ public class ShepardVisionCone : MonoBehaviour {
     public void setLookTarget(Vector2 target) {
         _lookTarget = new Vector2(target.x, target.y);
         calculateLookTargetAngle();
+    }
+
+    public void setLookAngle(float angle) {
+
     }
 
     private void calculateLookTargetAngle() {
