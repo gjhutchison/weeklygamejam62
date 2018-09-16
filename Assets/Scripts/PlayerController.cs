@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 	public SpriteRenderer sr;
-
     public Rigidbody2D _rb;
+    public SpriteBobber _sb;
 
     private bool _up, _down, _left, _right;
 
@@ -66,6 +66,14 @@ public class PlayerController : MonoBehaviour {
 
         float delta = Time.deltaTime;
 
+        float xAxis = Input.GetAxis("Horizontal");
+        float yAxis = Input.GetAxis("Vertical");
+
+        if(_left || _right || _up || _down) {
+            xAxis = 1;
+            yAxis = 1;
+        }
+
         if(delta > 1.0f / 60.0f) {
             delta = 1.0f / 60.0f;
         }
@@ -84,6 +92,20 @@ public class PlayerController : MonoBehaviour {
 
         if(_down) {
             force.y += -FORCE * delta;
+        }
+
+        if(force.x == 0 && force.y == 0) {
+            force.x = xAxis * FORCE * delta;
+            force.y = yAxis * FORCE * delta;
+        } else {
+            force.x *= xAxis;
+            force.y *= yAxis;
+        }
+
+        if(_rb.velocity.magnitude > 1) {
+            _sb.activate();
+        } else {
+            _sb.deactivate();
         }
 
         _rb.AddForce(force);
