@@ -4,33 +4,82 @@ using UnityEngine;
 
 public class ShepardVisionCone : MonoBehaviour {
 
-    public ShepardController _shepardController;
+    public GameObject _shepard;
+    private ShepardController _shepardController;
+    private GameObject _player;
+    private SpriteRenderer _shepardSpriteRenderer;
 
     private float _currentAngle;
+    private float _lookTargetAngle;
+    private Vector2 _lookTarget;
+
+    private bool _playerInView;
+
+    private readonly static string PLAYER_TAG = "Player";
 
 	// Use this for initialization
 	void Start () {
-		
-	}
+        _shepardController = _shepard.GetComponent<ShepardController>();
+        _shepardSpriteRenderer = _shepard.transform.Find("Shepard Sprite").GetComponent<SpriteRenderer>();
+        _lookTarget = new Vector2(_shepard.transform.position.x + 10.0f, _shepard.transform.position.y);
+        calculateLookTargetAngle();
+        _playerInView = false;
+        _player = GameObject.FindGameObjectWithTag(PLAYER_TAG);
+    }
 	
 	// Update is called once per frame
 	void Update () {
-		
+        if (_playerInView && !_player.GetComponent<PlayerController>().isDisguised()) {
+            _shepardController.setChasing();
+        }
+
+        if(!_playerInView && _shepardController.getState() == ShepardController.ShepardState.CHASE) {
+            _shepardController.setInvestigate(new Vector2(_player.transform.position.x, _player.transform.position.y));
+        }
+
+        _currentAngle = Mathf.LerpAngle(_currentAngle, _lookTargetAngle, 0.2f);
+        transform.localEulerAngles = new Vector3(0, 0, _currentAngle);
+        
+        if(_currentAngle > 360) {
+            _currentAngle -= 360;
+        }
+
+        if(_currentAngle < 0) {
+            _currentAngle += 360;
+        }
+
+        print(_currentAngle);
+
+        if(_currentAngle > 90.0f && _currentAngle < 270.0f) {
+            _shepardSpriteRenderer.flipX = true;
+        } else {
+            _shepardSpriteRenderer.flipX = false;
+        }
 	}
 
     void OnTriggerEnter2D(Collider2D other) {
-        if (other.gameObject.tag == "Player") {
-            spotPlayer(other.gameObject);
+        if (other.gameObject.tag == PLAYER_TAG) {
+            _playerInView = true;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other) {
+        if(other.gameObject.tag == PLAYER_TAG) {
+            _playerInView = false;
         }
     }
 
     private void spotPlayer(GameObject player) {
         _shepardController.setChasing();
-        print("I see you!");
-        
     }
 
     public void setLookTarget(Vector2 target) {
+        _lookTarget = new Vector2(target.x, target.y);
+        calculateLookTargetAngle();
+    }
 
+    private void calculateLookTargetAngle() {
+        _lookTargetAngle = Mathf.Atan2(_lookTarget.y - GetComponentInParent<Transform>().position.y,
+            _lookTarget.x - GetComponentInParent<Transform>().position.x) * Mathf.Rad2Deg;
     }
 }

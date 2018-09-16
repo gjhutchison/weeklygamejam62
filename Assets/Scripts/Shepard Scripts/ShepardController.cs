@@ -15,9 +15,8 @@ public class ShepardController : MonoBehaviour {
 
     private readonly static float FORCE = 675;
 
-    private enum ShepardState {
+    public enum ShepardState {
         IDLE,
-        SEARCH,
         CHASE,
         INVESTIGATE
     };
@@ -33,22 +32,47 @@ public class ShepardController : MonoBehaviour {
             case ShepardState.CHASE:
                 doChase();
                 break;
+            case ShepardState.INVESTIGATE:
+                doInvestigate();
+                break;
         }
 	}
 
     private void doChase() {
         Vector2 playerPos = new Vector2(_player.transform.position.x, _player.transform.position.y);
+        moveTowardsPoint(playerPos);
+        _visionCone.GetComponent<ShepardVisionCone>().setLookTarget(playerPos);
+    }
+
+    private void doInvestigate() {
+        moveTowardsPoint(_target);
+    }
+
+    private void moveTowardsPoint(Vector2 target) {
         Vector2 currentPos = new Vector2(transform.position.x, transform.position.y);
-        
-        float angle = Mathf.Atan2(playerPos.y - currentPos.y, playerPos.x - currentPos.x);
+        float angle = Mathf.Atan2(target.y - currentPos.y, target.x - currentPos.x);
         float totalForce = FORCE * Time.deltaTime;
         Vector2 force = new Vector2(Mathf.Cos(angle) * totalForce, Mathf.Sin(angle) * totalForce);
 
         _hitbox.AddForce(force);
-        _spriteBobber.activate();
+
+        if(_hitbox.velocity.magnitude > 1) {
+            _spriteBobber.activate();
+        } else {
+            _spriteBobber.deactivate();
+        }
     }
 
     public void setChasing() {
         _state = ShepardState.CHASE;
+    }
+
+    public void setInvestigate(Vector2 targetPos) {
+        _state = ShepardState.INVESTIGATE;
+        _target = new Vector2(targetPos.x, targetPos.y);
+    }
+
+    public ShepardState getState() {
+        return _state;
     }
 }
