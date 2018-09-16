@@ -242,6 +242,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1895c7e151505b4fb4f4da5b6df316f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _standingSprite: {fileID: 21300000, guid: b055c58b0c87646449e3b8b694585748, type: 3}
+  _disguisedSprite: {fileID: 21300000, guid: 3ced0caef804bf340bf268ba25f6aec4, type: 3}
   sr: {fileID: 212696838395169030}
   _rb: {fileID: 50454533085939646}
   _sb: {fileID: 114043670195987308}

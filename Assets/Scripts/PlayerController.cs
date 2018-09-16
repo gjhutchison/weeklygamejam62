@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
+    public Sprite _standingSprite;
+    public Sprite _disguisedSprite;
 	public SpriteRenderer sr;
     public Rigidbody2D _rb;
     public SpriteBobber _sb;
@@ -15,7 +17,10 @@ public class PlayerController : MonoBehaviour {
 
     private bool _slowed;
 
+    private bool _disguised;
+
     private readonly static float FORCE = 750.0f;
+    private readonly static float DRAG = 3.0f;
 
 	// Use this for initialization
 	void Start () {
@@ -59,6 +64,15 @@ public class PlayerController : MonoBehaviour {
         if (Input.GetKeyUp(KeyCode.S)) {
             _down = false;
         }
+
+
+        if (Input.GetKeyDown(KeyCode.LeftShift)) {
+            _disguised = true;
+        }
+
+        if (Input.GetKeyUp(KeyCode.LeftShift)) {
+            _disguised = false;
+        }
     }
 
 	// Update is called once per frame
@@ -73,11 +87,16 @@ public class PlayerController : MonoBehaviour {
 
         float totalForce = FORCE;
 
+        float totalDrag = DRAG;
+
         if (_slowed) {
             totalForce = totalForce * 0.75f;
-            _rb.drag = 5;
-        } else {
-            _rb.drag = 3;
+            totalDrag = totalDrag + 3;
+        }
+
+        if(_disguised) {
+            totalForce = totalForce * 0.8f;
+            totalDrag += 1;
         }
 
         if(_left || _right || _up || _down) {
@@ -120,6 +139,7 @@ public class PlayerController : MonoBehaviour {
         }
 
         _rb.AddForce(force);
+        _rb.drag = totalDrag;
 
         if (_rb.velocity.x > 0) {
             sr.flipX = false;
@@ -127,10 +147,20 @@ public class PlayerController : MonoBehaviour {
         else if (_rb.velocity.x < 0) {
             sr.flipX = true;
         }
-       
+
+        if (_disguised) {
+            sr.sprite = _disguisedSprite;
+        } else {
+            sr.sprite = _standingSprite;
+        }
+
     }
 
     public void setSlowed(bool slowed) {
         _slowed = slowed;
+    }
+
+    public bool isDisguised() {
+        return _disguised;
     }
 }
