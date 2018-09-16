@@ -8,8 +8,9 @@ public class PlayerController : MonoBehaviour {
 	public SpriteRenderer sr;
     public Rigidbody2D _rb;
     public SpriteBobber _sb;
+	public SheepEater _eater;
 
-    private bool _up, _down, _left, _right;
+    private bool _up, _down, _left, _right, _action;
 
     private bool _flipped;
 
@@ -29,7 +30,7 @@ public class PlayerController : MonoBehaviour {
         _left = false;
         _right = false;
         _controller = false;
-
+		_action = false;
     }
 	
     void inputCheck() {
@@ -49,6 +50,10 @@ public class PlayerController : MonoBehaviour {
             _down = true;
         }
 
+		if (Input.GetKeyDown(KeyCode.Space)) {
+			_action = true;
+		}
+
         if (Input.GetKeyUp(KeyCode.A)) {
             _left = false;
         }
@@ -65,6 +70,9 @@ public class PlayerController : MonoBehaviour {
             _down = false;
         }
 
+		if (Input.GetKeyUp(KeyCode.Space)) {
+			_action = false;
+		}
 
         if (Input.GetKeyDown(KeyCode.LeftShift)) {
             _disguised = true;
@@ -88,6 +96,10 @@ public class PlayerController : MonoBehaviour {
         float totalForce = FORCE;
 
         float totalDrag = DRAG;
+
+		if (_action) {
+			_eater.gameObject.SetActive(true);
+		}
 
         if (_slowed) {
             totalForce = totalForce * 0.75f;

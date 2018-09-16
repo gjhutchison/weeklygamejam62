@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
-public class EatSheep : MonoBehaviour {
+public class SheepEater : MonoBehaviour {
 
 	private bool isCollidingSheep = false;
 	private string corpseSpriteNames = "Sprites/sheepcorpses";
@@ -18,11 +16,13 @@ public class EatSheep : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		isCollidingSheep = false;
+		this.gameObject.SetActive (false);
 	}
 		
 	void OnTriggerEnter2D(Collider2D other)
 	{
 		if (other.gameObject.tag == "SheepEatCollider") {
+			
 			if (isCollidingSheep) {
 				return;
 			}
@@ -34,7 +34,9 @@ public class EatSheep : MonoBehaviour {
 
 			// Swap the sprite to a random corpse sprite
 			GameObject sheepObj = other.transform.parent.gameObject;
-			sheepObj.GetComponent<SpriteRenderer>().sprite = sprites[Random.Range(0, sprites.Length)];
+			GameObject spriteObj = sheepObj.transform.Find ("Sprite").gameObject;
+
+			spriteObj.GetComponent<SpriteRenderer>().sprite = sprites[Random.Range(0, sprites.Length)];
 
 			// Disable physics collisions on parent
 			sheepObj.GetComponent<BoxCollider2D> ().enabled = false;
