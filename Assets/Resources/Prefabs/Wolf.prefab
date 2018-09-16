@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 114275981568190806}
   - component: {fileID: 61410131731320168}
   - component: {fileID: 50454533085939646}
+  - component: {fileID: 114242595737664932}
   m_Layer: 0
   m_Name: Wolf
   m_TagString: Player
@@ -112,7 +113,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1562284523824506}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.941, z: 0}
+  m_LocalPosition: {x: 0, y: -0.941, z: 11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4805158100125612}
@@ -218,6 +219,17 @@ MonoBehaviour:
   _transform: {fileID: 4153992961265052}
   _speedMod: 20
   _distanceMod: 0.2
+--- !u!114 &114242595737664932
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1112830881290806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8aac7567fc3f1044eb2099824362fe05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114275981568190806
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -277,7 +289,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: b055c58b0c87646449e3b8b694585748, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -325,7 +337,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c014dce29fc6805458ee1718b3ac760a, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.49019608}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.47058824}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
