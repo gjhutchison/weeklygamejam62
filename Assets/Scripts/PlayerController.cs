@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
     public Sprite _standingSprite;
     public Sprite _disguisedSprite;
-	public SpriteRenderer sr;
+	public SpriteRenderer _sr;
     public Rigidbody2D _rb;
     public SpriteBobber _sb;
 	public SheepEater _eater;
@@ -154,16 +154,16 @@ public class PlayerController : MonoBehaviour {
         _rb.drag = totalDrag;
 
         if (_rb.velocity.x > 0) {
-            sr.flipX = false;
+            _sr.flipX = false;
         }
         else if (_rb.velocity.x < 0) {
-            sr.flipX = true;
+            _sr.flipX = true;
         }
 
         if (_disguised) {
-            sr.sprite = _disguisedSprite;
+            _sr.sprite = _disguisedSprite;
         } else {
-            sr.sprite = _standingSprite;
+            _sr.sprite = _standingSprite;
         }
 
     }
