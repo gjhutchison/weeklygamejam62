@@ -216,6 +216,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _transform: {fileID: 4153992961265052}
+  _speedMod: 20
+  _distanceMod: 0.2
 --- !u!114 &114275981568190806
 MonoBehaviour:
   m_ObjectHideFlags: 1

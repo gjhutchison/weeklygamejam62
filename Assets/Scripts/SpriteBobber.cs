@@ -14,6 +14,9 @@ public class SpriteBobber : MonoBehaviour {
 
     private bool _active;
 
+    public float _speedMod;
+    public float _distanceMod;
+
 	// Use this for initialization
 	void Start () {
         _startTime = 0;
@@ -28,7 +31,7 @@ public class SpriteBobber : MonoBehaviour {
         float y = 0;
 
         if (_active) {
-            y = Mathf.Sin(delta*20.0f)/5.0f + (1.0f/5.0f);
+            y = Mathf.Sin(delta*_speedMod) *_distanceMod + (_distanceMod);
         }
 
         Vector2 currentPos = new Vector2(0, _transform.localPosition.y);
