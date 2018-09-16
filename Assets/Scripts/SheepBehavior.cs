@@ -2,12 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SheepBehavior : MonoBehaviour {
+public class SheepBehavior : MonoBehaviour, PlayerActionReceiver {
+	private bool _dead = false;
+
 	public SpriteRenderer _sr;
 	public SpriteBobber _sb;
 	public Rigidbody2D _rb;
+
 	private float _pauseTime = 2.2f;
 	private float _actionCounter = 0.0f;
+
+	private string corpseSpriteNames = "Sprites/sheepcorpses";
+	private Sprite[] sprites;
 
 	private Vector2 _moveVector;
 	private bool _flipped;
@@ -16,6 +22,10 @@ public class SheepBehavior : MonoBehaviour {
 	private readonly static float DRAG = 3.0f;
 
 	IEnumerator HopAround() {
+		if (_dead) {
+			yield break;
+		}
+
 		_moveVector = Vector2.zero;
 		yield return new WaitForSeconds (Random.Range(1.0f,6.0f));
 		_moveVector = new Vector2 (Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f));
@@ -26,6 +36,7 @@ public class SheepBehavior : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		sprites = Resources.LoadAll<Sprite> (corpseSpriteNames);
 		_moveVector = Vector2.zero;
 		StartCoroutine("HopAround");
 	}
@@ -35,10 +46,6 @@ public class SheepBehavior : MonoBehaviour {
 		Vector2 force = new Vector2();
 
 		float delta = Time.deltaTime;
-
-		float xAxis = 0;
-		float yAxis = 0;
-
 		float totalForce = FORCE;
 		float totalDrag = DRAG;
 
@@ -49,9 +56,11 @@ public class SheepBehavior : MonoBehaviour {
 		force = _moveVector * totalForce * delta;
 
 		if(_rb.velocity.magnitude > 1) {
-			_sb.activate();
+			if (!_dead) {
+				_sb.activate ();
+			}
 		} else {
-			_sb.deactivate();
+			_sb.deactivate ();
 		}
 
 		_rb.AddForce(force);
@@ -63,5 +72,22 @@ public class SheepBehavior : MonoBehaviour {
 		else if (_rb.velocity.x < 0) {
 			_sr.flipX = true;
 		}
+	}
+
+	// AKA totally getting eaten
+	public void OnPlayerAction() {
+		_dead = true;
+
+		// Swap the sprite to a random corpse sprite
+		GameObject sheepObj = this.gameObject;
+		GameObject spriteObj = sheepObj.transform.Find ("Sprite").gameObject;
+
+		spriteObj.GetComponent<SpriteRenderer>().sprite = sprites[Random.Range(0, sprites.Length)];
+
+		// Disable physics collisions on parent
+		sheepObj.GetComponent<BoxCollider2D> ().enabled = false;
+
+		_sb.deactivate();
+		_rb.simulated = false;
 	}
 }
