@@ -33,16 +33,9 @@ public class SpriteBobber : MonoBehaviour {
 
         Vector2 currentPos = new Vector2(0, _transform.localPosition.y);
         Vector2 targetPos = new Vector2(0,y);
-
         Vector2 endPosition = Vector2.Lerp(currentPos, targetPos, 0.35f);
-
         endPosition.y = endPosition.y - currentPos.y;
-
-        //print(endPosition.y + " " + _active);
-
         _transform.Translate(0,endPosition.y,0);
-
-        print(_transform.localPosition.y + " " + _active);
     }
 
     public void activate() {
