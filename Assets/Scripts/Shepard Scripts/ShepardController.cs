@@ -14,6 +14,7 @@ public class ShepardController : MonoBehaviour {
     private Vector2 _target;
     private Vector2 _startPosition;
 
+    private float _searchLength;
     private float _currentSearchDelay;
     private int _currentSearchAction;
 
@@ -37,15 +38,22 @@ public class ShepardController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        SpriteRenderer coneSprite = _visionCone.transform.Find("Cone Renderer").GetComponent<SpriteRenderer>();
         switch (_state) {
             case ShepardState.CHASE:
+                coneSprite.color = new Color(1,0,0,0.3f);
                 doChase();
                 break;
             case ShepardState.INVESTIGATE:
+                coneSprite.color = new Color(1, 0.5f, 0.0f, 0.3f);
                 doInvestigate();
                 break;
             case ShepardState.SEARCH:
+                coneSprite.color = new Color(1, 1, 0, 0.3f);
                 doSearch();
+                break;
+            case ShepardState.IDLE:
+                coneSprite.color = new Color(0, 0.5f, 0, 0.3f);
                 break;
         }
 	}
@@ -60,11 +68,16 @@ public class ShepardController : MonoBehaviour {
         moveTowardsPoint(_target);
 
         if(Vector2.Distance(transform.position, _target) < 0.5f) {
-            setSearching();
+            setSearching(Random.Range(3,9));
         }
     }
 
     private void doSearch() {
+        if(_searchLength < 0) {
+            _state = ShepardState.IDLE;
+            _spriteBobber.deactivate();
+            return;
+        }
 
         if (_currentSearchDelay >= 0) {
             _currentSearchDelay -= Time.deltaTime;
@@ -93,6 +106,8 @@ public class ShepardController : MonoBehaviour {
             }
         }
 
+        _searchLength -= Time.deltaTime;
+
 
     }
 
@@ -120,8 +135,9 @@ public class ShepardController : MonoBehaviour {
         _target = new Vector2(targetPos.x, targetPos.y);
     }
 
-    public void setSearching() {
+    public void setSearching(float length) {
         _state = ShepardState.SEARCH;
+        _searchLength = length;
         _currentSearchDelay = -1;
     }
 
