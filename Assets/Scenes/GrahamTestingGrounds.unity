@@ -302,7 +302,7 @@ GameObject:
   - component: {fileID: 950392576}
   m_Layer: 0
   m_Name: Bushes
-  m_TagString: Untagged
+  m_TagString: Bush
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -506,6 +506,10 @@ Prefab:
       propertyPath: _player
       value: 
       objectReference: {fileID: 803893366}
+    - target: {fileID: 1400344353923038, guid: 6284a245c68a58e49908e787b353fc98, type: 2}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6284a245c68a58e49908e787b353fc98, type: 2}
   m_IsPrefabAsset: 0

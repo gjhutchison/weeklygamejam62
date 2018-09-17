@@ -9,6 +9,7 @@ TagManager:
   - Tree
   - SheepEatCollider
   - ShepardVisionCone
+  - Enemy
   layers:
   - Default
   - TransparentFX

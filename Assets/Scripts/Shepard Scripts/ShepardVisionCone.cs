@@ -25,15 +25,29 @@ public class ShepardVisionCone : MonoBehaviour {
         calculateLookTargetAngle();
         _playerInView = false;
         _player = GameObject.FindGameObjectWithTag(PLAYER_TAG);
+
+        
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (_playerInView && !_player.GetComponent<PlayerController>().isDisguised()) {
+        bool lineOfSight = true;
+        Vector2 origin = new Vector2(_shepard.transform.position.x, _shepard.transform.position.y);
+        origin.y += 0.5f;
+        Vector2 target = new Vector2(_player.transform.position.x, _player.transform.position.y);
+        Vector2 direction = new Vector2(target.x - origin.x, target.y - origin.y);
+        direction.Normalize();
+        Debug.DrawLine(origin, target);
+        RaycastHit2D[] hitTargets = Physics2D.RaycastAll(origin, direction, Vector2.Distance(origin, target));
+        for (int i = 0; i < hitTargets.Length; i++) {
+            lineOfSight = lineOfSight && !(hitTargets[i].collider.gameObject.tag == "Bush");
+        }
+
+        if ((_playerInView && lineOfSight) && !_player.GetComponent<PlayerController>().isDisguised()) {
             _shepardController.setChasing();
         }
 
-        if(!_playerInView && _shepardController.getState() == ShepardController.ShepardState.CHASE) {
+        if(!(_playerInView && lineOfSight) && _shepardController.getState() == ShepardController.ShepardState.CHASE) {
             _shepardController.setInvestigate(new Vector2(_player.transform.position.x, _player.transform.position.y));
         }
 

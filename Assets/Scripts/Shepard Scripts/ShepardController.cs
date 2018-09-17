@@ -126,6 +126,10 @@ public class ShepardController : MonoBehaviour {
         }
     }
 
+    public void setIdle() {
+
+    }
+
     public void setChasing() {
         _state = ShepardState.CHASE;
     }
