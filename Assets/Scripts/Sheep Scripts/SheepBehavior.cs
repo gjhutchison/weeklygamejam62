@@ -90,4 +90,8 @@ public class SheepBehavior : MonoBehaviour, PlayerActionReceiver {
 		_sb.deactivate();
 		_rb.simulated = false;
 	}
+
+    public bool isDead() {
+        return _dead;
+    }
 }
