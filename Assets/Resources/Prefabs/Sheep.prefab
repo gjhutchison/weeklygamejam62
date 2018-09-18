@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4994973411721300}
-  - component: {fileID: 61723885524812676}
+  - component: {fileID: 58145582846154158}
   m_Layer: 0
   m_Name: NomCollider
   m_TagString: SheepEatCollider
@@ -36,8 +36,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4004209474519200}
   - component: {fileID: 50500667069166406}
-  - component: {fileID: 61408277295819156}
   - component: {fileID: 114656092927476954}
+  - component: {fileID: 70309507041017438}
   m_Layer: 0
   m_Name: Sheep
   m_TagString: Sheep
@@ -86,7 +86,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1602435779604328}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.2281057, y: 0.2816861, z: 10}
+  m_LocalPosition: {x: 2.73, y: -1.68, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4797108987570274}
@@ -154,33 +154,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!61 &61408277295819156
-BoxCollider2D:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1602435779604328}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.0447464, y: -0.17898513}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.56, y: 2.56}
-    newSize: {x: 2.56, y: 2.56}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.3071046, y: 1.0087962}
-  m_EdgeRadius: 0
---- !u!61 &61723885524812676
-BoxCollider2D:
+--- !u!58 &58145582846154158
+CircleCollider2D:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -191,19 +166,24 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.059661686, y: -0.111866}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.56, y: 2.56}
-    newSize: {x: 2.56, y: 2.56}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_Offset: {x: 0.039230287, y: -0.10897297}
   serializedVersion: 2
-  m_Size: {x: 1.7545668, y: 1.6203275}
-  m_EdgeRadius: 0
+  m_Radius: 0.8923026
+--- !u!70 &70309507041017438
+CapsuleCollider2D:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1602435779604328}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.0018983603, y: -0.0985996}
+  m_Size: {x: 1.152626, y: 0.5486495}
+  m_Direction: 1
 --- !u!114 &114065708502513272
 MonoBehaviour:
   m_ObjectHideFlags: 1

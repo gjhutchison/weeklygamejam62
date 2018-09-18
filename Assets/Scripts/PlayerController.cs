@@ -88,7 +88,7 @@ public class PlayerController : MonoBehaviour {
         Vector2 force = new Vector2();
         inputCheck();
 
-        float delta = Time.deltaTime;
+        float delta = Time.fixedDeltaTime;
 
         float xAxis = Input.GetAxis("Horizontal");
         float yAxis = Input.GetAxis("Vertical");
@@ -114,10 +114,6 @@ public class PlayerController : MonoBehaviour {
         if(_left || _right || _up || _down) {
             xAxis = 1;
             yAxis = 1;
-        }
-
-        if(delta > 1.0f / 60.0f) {
-            delta = 1.0f / 60.0f;
         }
 
         if (_left) {
@@ -148,6 +144,11 @@ public class PlayerController : MonoBehaviour {
             _sb.activate();
         } else {
             _sb.deactivate();
+        }
+
+        if (force.magnitude > totalForce * delta) {
+            force.Normalize();
+            force = force * (totalForce * delta);
         }
 
         _rb.AddForce(force);

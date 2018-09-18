@@ -85,7 +85,7 @@ public class SheepBehavior : MonoBehaviour, PlayerActionReceiver {
 		spriteObj.GetComponent<SpriteRenderer>().sprite = sprites[Random.Range(0, sprites.Length)];
 
 		// Disable physics collisions on parent
-		sheepObj.GetComponent<BoxCollider2D> ().enabled = false;
+		sheepObj.GetComponent<CapsuleCollider2D> ().enabled = false;
 
 		_sb.deactivate();
 		_rb.simulated = false;

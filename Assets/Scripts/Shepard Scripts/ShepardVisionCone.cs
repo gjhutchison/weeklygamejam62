@@ -45,9 +45,9 @@ public class ShepardVisionCone : MonoBehaviour {
 
         if ((_playerInView && lineOfSight) && !_player.GetComponent<PlayerController>().isDisguised()) {
             _shepardController.setChasing();
-        }
-
-        if(!(_playerInView && lineOfSight) && _shepardController.getState() == ShepardController.ShepardState.CHASE) {
+        } else if((!_playerInView && lineOfSight) && _shepardController.getState() == ShepardController.ShepardState.CHASE) {
+            _shepardController.setChasing();
+        } else if(!(_playerInView && lineOfSight) && _shepardController.getState() == ShepardController.ShepardState.CHASE) {
             _shepardController.setInvestigate(new Vector2(_player.transform.position.x, _player.transform.position.y));
         }
 
@@ -91,7 +91,7 @@ public class ShepardVisionCone : MonoBehaviour {
     }
 
     public void setLookAngle(float angle) {
-
+        _lookTargetAngle = angle;
     }
 
     private void calculateLookTargetAngle() {

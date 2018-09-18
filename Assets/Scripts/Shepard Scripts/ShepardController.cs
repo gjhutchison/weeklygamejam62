@@ -14,9 +14,12 @@ public class ShepardController : MonoBehaviour {
     private Vector2 _target;
     private Vector2 _startPosition;
 
-    private float _searchLength;
-    private float _currentSearchDelay;
-    private int _currentSearchAction;
+    private float _searchLength = 0;
+    private float _currentSearchDelay = 0;
+    private float _currentIdleLookDelay = 0;
+    private int _currentSearchAction = 0;
+
+    private float _currentIdleLookAngle = 0;
 
     private readonly static float FORCE = 675;
 
@@ -54,6 +57,7 @@ public class ShepardController : MonoBehaviour {
                 break;
             case ShepardState.IDLE:
                 coneSprite.color = new Color(0, 0.5f, 0, 0.3f);
+                doIdle();
                 break;
         }
 	}
@@ -109,6 +113,20 @@ public class ShepardController : MonoBehaviour {
         _searchLength -= Time.deltaTime;
 
 
+    }
+
+    private void doIdle() {
+        if(_currentIdleLookDelay > 0) {
+            _currentIdleLookDelay -= Time.deltaTime;
+        } else {
+            int choice = Random.Range(0,9);
+            _currentIdleLookAngle = choice * 45;
+            _currentIdleLookDelay = Random.Range(1, 2.5f);
+            _visionCone.GetComponent<ShepardVisionCone>().setLookAngle(_currentIdleLookAngle);
+        }
+
+        print(_currentIdleLookAngle);
+        
     }
 
     private void moveTowardsPoint(Vector2 target) {
