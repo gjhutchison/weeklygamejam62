@@ -20,6 +20,8 @@ public class ShepardController : MonoBehaviour {
     private int _currentSearchAction = 0;
 
     private float _currentIdleLookAngle = 0;
+    private int _idleActionsRemaining = 0;
+    private int _idleAction = 0;
 
     private readonly static float FORCE = 675;
 
@@ -116,17 +118,51 @@ public class ShepardController : MonoBehaviour {
     }
 
     private void doIdle() {
-        if(_currentIdleLookDelay > 0) {
-            _currentIdleLookDelay -= Time.deltaTime;
-        } else {
-            int choice = Random.Range(0,9);
-            _currentIdleLookAngle = choice * 45;
-            _currentIdleLookDelay = Random.Range(1, 2.5f);
-            _visionCone.GetComponent<ShepardVisionCone>().setLookAngle(_currentIdleLookAngle);
+        if(_idleActionsRemaining <= 0) {
+            _idleAction = Random.Range(0,2);
+
+            if(_idleAction == 0) {
+                _idleActionsRemaining = Random.Range(3, 10);
+                _currentIdleLookDelay = 0;
+            } else if(_idleAction == 1) {
+                _idleActionsRemaining = 1;
+                GameObject sheep = getRandomSheep();
+                _target = new Vector2(sheep.transform.position.x, sheep.transform.position.y);
+                _visionCone.GetComponent<ShepardVisionCone>().setLookTarget(_target);
+                _currentIdleLookDelay = 7;
+            }
         }
 
-        print(_currentIdleLookAngle);
-        
+        if(_idleAction == 0) {
+            if (_currentIdleLookDelay > 0) {
+                _currentIdleLookDelay -= Time.deltaTime;
+            }
+            else {
+                int choice = Random.Range(0, 9);
+                _currentIdleLookAngle = choice * 45;
+                _currentIdleLookDelay = Random.Range(1, 2.5f);
+                _visionCone.GetComponent<ShepardVisionCone>().setLookAngle(_currentIdleLookAngle);
+                _idleActionsRemaining--;
+                _spriteBobber.deactivate();
+            }
+        } else if(_idleAction == 1) {
+            if (Vector2.Distance(transform.position, _target) < 1) {
+                _idleActionsRemaining--;
+            }
+
+            if(_currentIdleLookDelay < 0) {
+                _idleActionsRemaining--;
+            } else {
+                _currentIdleLookDelay -= Time.deltaTime;
+            }
+
+            moveTowardsPoint(_target);
+        }
+    }
+
+    private GameObject getRandomSheep() {
+        GameObject[] allSheep = GameObject.FindGameObjectsWithTag("Sheep");
+        return allSheep[Random.Range(0, allSheep.Length)];
     }
 
     private void moveTowardsPoint(Vector2 target) {
@@ -145,7 +181,7 @@ public class ShepardController : MonoBehaviour {
     }
 
     public void setIdle() {
-
+        _state = ShepardState.IDLE;
     }
 
     public void setChasing() {
