@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameOverUIScript : MonoBehaviour {
+public class GameWonUIScript : MonoBehaviour {
 
     // Use this for initialization
     private PlayerController _playerController;
@@ -19,15 +19,15 @@ public class GameOverUIScript : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if (!_playerController.isDead() || _levelController.wonGame()) {
+        if (_playerController.isDead() || !_levelController.wonGame()) {
             _gameOverText.text = "";
             return;
         }
 
-        _gameOverText.text = "GAME OVER\nPRESS R TO RESTART";
+        _gameOverText.text = "YOU WIN!\nPRESS ENTER";
 
-        if (Input.GetKeyUp(KeyCode.R)) {
-            UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+        if (Input.GetKeyUp(KeyCode.Return)) {
+            UnityEngine.SceneManagement.SceneManager.LoadScene(_levelController.getNextLevel());
         }
     }
 }

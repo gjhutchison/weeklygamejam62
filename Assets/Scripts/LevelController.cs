@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class LevelController : MonoBehaviour {
 
-    GameObject[] _allSheep;
-    int _remainingSheep;
+    public string _nextLevel;
+
+    private GameObject[] _allSheep;
+    private int _remainingSheep;
 
 
     // Use this for initialization
@@ -22,15 +24,17 @@ public class LevelController : MonoBehaviour {
                 _remainingSheep++;
             }
         }
-
-        
-
-        if(_remainingSheep == 0) {
-            print("You Win");
-        }
 	}
 
     public int getSheepRemaining() {
         return _remainingSheep;
+    }
+
+    public bool wonGame() {
+        return _remainingSheep == 0;
+    }
+
+    public string getNextLevel() {
+        return _nextLevel;
     }
 }
