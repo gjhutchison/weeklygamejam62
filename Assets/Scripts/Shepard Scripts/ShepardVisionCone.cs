@@ -9,6 +9,9 @@ public class ShepardVisionCone : MonoBehaviour {
     private GameObject _player;
     private SpriteRenderer _shepardSpriteRenderer;
 
+	private string _alertSoundPath = "Audio/Alert";
+	private AudioClip[] _alertSounds;
+
     private float _currentAngle;
     private float _lookTargetAngle;
     private Vector2 _lookTarget;
@@ -25,8 +28,7 @@ public class ShepardVisionCone : MonoBehaviour {
         calculateLookTargetAngle();
         _playerInView = false;
         _player = GameObject.FindGameObjectWithTag(PLAYER_TAG);
-
-        
+		_alertSounds = Resources.LoadAll<AudioClip> (_alertSoundPath);
     }
 	
 	// Update is called once per frame
@@ -44,7 +46,11 @@ public class ShepardVisionCone : MonoBehaviour {
         }
 
         if ((_playerInView && lineOfSight) && !_player.GetComponent<PlayerController>().isDisguised()) {
-            _shepardController.setChasing();
+			if (_shepardController.getState () != ShepardController.ShepardState.CHASE) {
+				_shepard.GetComponent<AudioSource> ().PlayOneShot (_alertSounds[Random.Range(0, _alertSounds.Length)]);
+			}
+
+			_shepardController.setChasing();
         } else if((!_playerInView && lineOfSight) && _shepardController.getState() == ShepardController.ShepardState.CHASE) {
             _shepardController.setChasing();
         } else if(!(_playerInView && lineOfSight) && _shepardController.getState() == ShepardController.ShepardState.CHASE) {

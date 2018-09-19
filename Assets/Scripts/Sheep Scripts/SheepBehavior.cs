@@ -12,7 +12,7 @@ public class SheepBehavior : MonoBehaviour, PlayerActionReceiver {
 	//private float _pauseTime = 2.2f;
 	//private float _actionCounter = 0.0f;
 
-	private string _deathSoundPath = "Audio/Baa";
+	private string _deathSoundPath = "Audio/Baa"; // Credit to reinsamba on freesound
 	private string _corpseSpritePath = "Sprites/sheepcorpses";
 
 	private Sprite[] _deathSprites;
