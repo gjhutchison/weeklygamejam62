@@ -24,12 +24,6 @@ public class LevelController : MonoBehaviour {
                 _remainingSheep++;
             }
         }
-
-        
-
-        if(_remainingSheep == 0) {
-            print("You Win");
-        }
 	}
 
     public int getSheepRemaining() {
