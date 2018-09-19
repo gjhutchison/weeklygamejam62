@@ -6,7 +6,7 @@ public class ShepardController : MonoBehaviour {
 
     public GameObject _visionCone;
     public Rigidbody2D _hitbox;
-    public GameObject _player;
+    private GameObject _player;
     public SpriteBobber _spriteBobber;
 
     private ShepardState _state;
@@ -39,6 +39,8 @@ public class ShepardController : MonoBehaviour {
         _currentSearchDelay = 0;
         _startPosition = new Vector2(transform.position.x, transform.position.y);
 
+        _player = GameObject.FindGameObjectWithTag("Player");
+
     }
 	
 	// Update is called once per frame
@@ -68,6 +70,14 @@ public class ShepardController : MonoBehaviour {
         Vector2 playerPos = new Vector2(_player.transform.position.x, _player.transform.position.y);
         moveTowardsPoint(playerPos);
         _visionCone.GetComponent<ShepardVisionCone>().setLookTarget(playerPos);
+
+        float distance = Vector2.Distance(transform.position, _player.transform.position);
+        print(distance);
+        if (distance < 1.5f) {
+            _player.GetComponent<PlayerController>().kill();
+            setIdle();
+        }
+
     }
 
     private void doInvestigate() {

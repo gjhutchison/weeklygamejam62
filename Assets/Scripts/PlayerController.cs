@@ -5,10 +5,12 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
     public Sprite _standingSprite;
     public Sprite _disguisedSprite;
+    public Sprite _wolfDead;
 	public SpriteRenderer _sr;
     public Rigidbody2D _rb;
     public SpriteBobber _sb;
 	public SheepEater _eater;
+    public GameObject _bloodSprayer;
 
     private bool _up, _down, _left, _right, _action;
 
@@ -131,7 +133,10 @@ public class PlayerController : MonoBehaviour {
             _sr.flipX = true;
         }
 
-        if (_disguised) {
+        if (_dead) {
+            _sr.sprite = _wolfDead;
+            _sb.deactivate();
+        } else if (_disguised) {
             _sr.sprite = _disguisedSprite;
         } else {
             _sr.sprite = _standingSprite;
@@ -187,6 +192,14 @@ public class PlayerController : MonoBehaviour {
         }
 
         return force;
+    }
+
+    public void kill() {
+        if (_dead) {
+            return;
+        }
+        _dead = true;
+        _bloodSprayer.SetActive(true);
     }
 
     public void setSlowed(bool slowed) {

@@ -46,11 +46,12 @@ public class ShepardVisionCone : MonoBehaviour {
         }
 
         if ((_playerInView && lineOfSight) && !_player.GetComponent<PlayerController>().isDisguised()) {
-			if (_shepardController.getState () != ShepardController.ShepardState.CHASE) {
-				_shepard.GetComponent<AudioSource> ().PlayOneShot (_alertSounds[Random.Range(0, _alertSounds.Length)]);
-			}
-
-			_shepardController.setChasing();
+            if (!_player.GetComponent<PlayerController>().isDead()) {
+                if (_shepardController.getState() != ShepardController.ShepardState.CHASE) {
+                    _shepard.GetComponent<AudioSource>().PlayOneShot(_alertSounds[Random.Range(0, _alertSounds.Length)]);
+                }
+                _shepardController.setChasing();
+            }
         } else if((!_playerInView && lineOfSight) && _shepardController.getState() == ShepardController.ShepardState.CHASE) {
             _shepardController.setChasing();
         } else if(!(_playerInView && lineOfSight) && _shepardController.getState() == ShepardController.ShepardState.CHASE) {

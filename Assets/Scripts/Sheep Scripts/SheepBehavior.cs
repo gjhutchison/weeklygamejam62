@@ -8,6 +8,7 @@ public class SheepBehavior : MonoBehaviour, PlayerActionReceiver {
 	public SpriteRenderer _sr;
 	public SpriteBobber _sb;
 	public Rigidbody2D _rb;
+    public GameObject _blood;
 
 	//private float _pauseTime = 2.2f;
 	//private float _actionCounter = 0.0f;
@@ -80,6 +81,10 @@ public class SheepBehavior : MonoBehaviour, PlayerActionReceiver {
 
 	// AKA totally getting eaten
 	public void OnPlayerAction() {
+        if (_dead) {
+            return;
+        }
+
 		_dead = true;
 
 		// Swap the sprite to a random corpse sprite
@@ -97,7 +102,10 @@ public class SheepBehavior : MonoBehaviour, PlayerActionReceiver {
 
 		_sb.deactivate();
 		_rb.simulated = false;
-	}
+
+        _blood.SetActive(true);
+
+    }
 
     public bool isDead() {
         return _dead;
