@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour {
 
     private bool _disguised;
 
+    private bool _dead;
+
     private readonly static float FORCE = 750.0f;
     private readonly static float DRAG = 3.0f;
 
@@ -31,6 +33,7 @@ public class PlayerController : MonoBehaviour {
         _right = false;
         _controller = false;
 		_action = false;
+        _dead = false;
     }
 	
     void inputCheck() {
@@ -90,8 +93,7 @@ public class PlayerController : MonoBehaviour {
 
         float delta = Time.fixedDeltaTime;
 
-        float xAxis = Input.GetAxis("Horizontal");
-        float yAxis = Input.GetAxis("Vertical");
+
 
         float totalForce = FORCE;
 
@@ -111,44 +113,8 @@ public class PlayerController : MonoBehaviour {
             totalDrag += 1;
         }
 
-        if(_left || _right || _up || _down) {
-            xAxis = 1;
-            yAxis = 1;
-        }
-
-        if (_left) {
-            force.x += -totalForce * delta;
-        }
-
-        if(_right) {
-            force.x += totalForce * delta;
-        }
-
-        if(_up) {
-            force.y += totalForce * delta;
-        }
-
-        if(_down) {
-            force.y += -totalForce * delta;
-        }
-
-        if(force.x == 0 && force.y == 0) {
-            force.x = xAxis * totalForce * delta;
-            force.y = yAxis * totalForce * delta;
-        } else {
-            force.x *= xAxis;
-            force.y *= yAxis;
-        }
-
-        if(_rb.velocity.magnitude > 1) {
-            _sb.activate();
-        } else {
-            _sb.deactivate();
-        }
-
-        if (force.magnitude > totalForce * delta) {
-            force.Normalize();
-            force = force * (totalForce * delta);
+        if (!_dead) {
+            force = calcMovement(totalForce, delta);
         }
 
         _rb.AddForce(force);
@@ -169,11 +135,65 @@ public class PlayerController : MonoBehaviour {
 
     }
 
+    private Vector2 calcMovement(float totalForce, float delta) {
+        Vector2 force = new Vector2();
+        float xAxis = Input.GetAxis("Horizontal");
+        float yAxis = Input.GetAxis("Vertical");
+
+        if (_left || _right || _up || _down) {
+            xAxis = 1;
+            yAxis = 1;
+        }
+
+        if (_left) {
+            force.x += -totalForce * delta;
+        }
+
+        if (_right) {
+            force.x += totalForce * delta;
+        }
+
+        if (_up) {
+            force.y += totalForce * delta;
+        }
+
+        if (_down) {
+            force.y += -totalForce * delta;
+        }
+
+        if (force.x == 0 && force.y == 0) {
+            force.x = xAxis * totalForce * delta;
+            force.y = yAxis * totalForce * delta;
+        }
+        else {
+            force.x *= xAxis;
+            force.y *= yAxis;
+        }
+
+        if (_rb.velocity.magnitude > 1) {
+            _sb.activate();
+        }
+        else {
+            _sb.deactivate();
+        }
+
+        if (force.magnitude > totalForce * delta) {
+            force.Normalize();
+            force = force * (totalForce * delta);
+        }
+
+        return force;
+    }
+
     public void setSlowed(bool slowed) {
         _slowed = slowed;
     }
 
     public bool isDisguised() {
         return _disguised;
+    }
+
+    public bool isDead() {
+        return _dead;
     }
 }
