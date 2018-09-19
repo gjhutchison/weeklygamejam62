@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour {
 
     private bool _flipped;
 
-    private bool _controller;
+    //private bool _controller;
 
     private bool _slowed;
 
@@ -25,13 +25,19 @@ public class PlayerController : MonoBehaviour {
     private readonly static float FORCE = 750.0f;
     private readonly static float DRAG = 3.0f;
 
+	private readonly static float SLOWED_MULTIPLIER = 0.7f;
+	private readonly static float SLOWED_DRAG = 6.0f;
+
+	private readonly static float DISGUISE_MULTIPLIER = 0.6f;
+	private readonly static float DISGUISE_DRAG = 4.0f;
+
 	// Use this for initialization
 	void Start () {
         _up = false;
         _down = false;
         _left = false;
         _right = false;
-        _controller = false;
+        //_controller = false;
 		_action = false;
         _dead = false;
     }
@@ -93,24 +99,22 @@ public class PlayerController : MonoBehaviour {
 
         float delta = Time.fixedDeltaTime;
 
-
-
         float totalForce = FORCE;
 
         float totalDrag = DRAG;
 
-		if (_action) {
+		if (_action && !_disguised) {
 			_eater.gameObject.SetActive(true);
 		}
 
         if (_slowed) {
-            totalForce = totalForce * 0.75f;
-            totalDrag = totalDrag + 3;
+			totalForce = totalForce * SLOWED_MULTIPLIER;
+			totalDrag = SLOWED_DRAG;
         }
 
         if(_disguised) {
-            totalForce = totalForce * 0.8f;
-            totalDrag += 1;
+			totalForce = totalForce * DISGUISE_MULTIPLIER;
+            totalDrag += DISGUISE_DRAG;
         }
 
         if (!_dead) {
