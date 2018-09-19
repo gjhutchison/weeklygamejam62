@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 4002335437691170}
   - component: {fileID: 114729434361494398}
   - component: {fileID: 61222912396290244}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SheepEater
   m_TagString: Untagged
   m_Icon: {fileID: 0}

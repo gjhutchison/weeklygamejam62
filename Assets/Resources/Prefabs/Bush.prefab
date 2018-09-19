@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4802765461295088}
   - component: {fileID: 212670774173814880}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 212776112064592706}
   - component: {fileID: 114700620828128406}
   - component: {fileID: 60077770233606294}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bush
   m_TagString: Bush
   m_Icon: {fileID: 0}
@@ -52,7 +52,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1927067385945234}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 12.39, y: 6.59, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4802765461295088}
