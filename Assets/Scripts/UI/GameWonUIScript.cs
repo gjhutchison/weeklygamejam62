@@ -19,7 +19,7 @@ public class GameWonUIScript : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if (_playerController.isDead() || !_levelController.wonGame()) {
+        if (!_levelController.wonGame()) {
             _gameOverText.text = "";
             return;
         }
