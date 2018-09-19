@@ -23,6 +23,9 @@ public class GameOverUIScript : MonoBehaviour {
         }
 
         _gameOverText.text = "GAME OVER\nPRESS R TO RESTART";
-        
+
+        if (Input.GetKeyUp(KeyCode.R)) {
+            UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+        }
     }
 }
