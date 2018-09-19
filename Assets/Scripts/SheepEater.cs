@@ -28,6 +28,7 @@ public class SheepEater : MonoBehaviour {
 
 			// Disable the sheep eating collider
 			other.enabled = false;
+			gameObject.GetComponentInParent<AudioSource> ().Play ();
 
 			SheepBehavior sheepBehavior = other.gameObject.GetComponentInParent<SheepBehavior>();
 			sheepBehavior.OnPlayerAction();
