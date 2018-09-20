@@ -92,6 +92,10 @@ public class PlayerController : MonoBehaviour {
         if (Input.GetKeyUp(KeyCode.LeftShift)) {
             _disguised = false;
         }
+
+        if(Input.GetKeyUp(KeyCode.Escape)) {
+            Application.Quit();
+        }
     }
 
 	// Update is called once per frame
