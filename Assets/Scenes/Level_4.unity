@@ -3736,7 +3736,7 @@ Prefab:
     - target: {fileID: 114979919447212248, guid: 0bcb9ffbf204be84597707c112881827,
         type: 2}
       propertyPath: _nextLevel
-      value: Main_Menu
+      value: Level_5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0bcb9ffbf204be84597707c112881827, type: 2}
@@ -4387,6 +4387,11 @@ Prefab:
     - target: {fileID: 1942333077336520, guid: 2663775df6e857c4497b2aab6e53aa66, type: 2}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114052840429443000, guid: 2663775df6e857c4497b2aab6e53aa66,
+        type: 2}
+      propertyPath: m_Text
+      value: Level 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2663775df6e857c4497b2aab6e53aa66, type: 2}
