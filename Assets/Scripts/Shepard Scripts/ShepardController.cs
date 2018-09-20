@@ -23,6 +23,9 @@ public class ShepardController : MonoBehaviour {
     private int _idleActionsRemaining = 0;
     private int _idleAction = 0;
 
+    private string _alertSoundPath = "Audio/Alert";
+    private AudioClip[] _alertSounds;
+
     private readonly static float FORCE = 675;
 
     public enum ShepardState {
@@ -40,7 +43,7 @@ public class ShepardController : MonoBehaviour {
         _startPosition = new Vector2(transform.position.x, transform.position.y);
 
         _player = GameObject.FindGameObjectWithTag("Player");
-
+        _alertSounds = Resources.LoadAll<AudioClip>(_alertSoundPath);
     }
 	
 	// Update is called once per frame
@@ -64,7 +67,13 @@ public class ShepardController : MonoBehaviour {
                 doIdle();
                 break;
         }
-	}
+
+        float distance = Vector2.Distance(transform.position, _player.transform.position);
+        if (distance < 1.0f && !_player.GetComponent<PlayerController>().isDead()) {
+            setChasing();
+            doChase();
+        }
+    }
 
     private void doChase() {
         Vector2 playerPos = new Vector2(_player.transform.position.x, _player.transform.position.y);
@@ -72,7 +81,6 @@ public class ShepardController : MonoBehaviour {
         _visionCone.GetComponent<ShepardVisionCone>().setLookTarget(playerPos);
 
         float distance = Vector2.Distance(transform.position, _player.transform.position);
-        print(distance);
         if (distance < 1.5f) {
             _player.GetComponent<PlayerController>().kill();
             setIdle();
@@ -195,7 +203,11 @@ public class ShepardController : MonoBehaviour {
     }
 
     public void setChasing() {
+        if(_state == ShepardState.CHASE) {
+            return;
+        }
         _state = ShepardState.CHASE;
+        GetComponent<AudioSource>().PlayOneShot(_alertSounds[Random.Range(0, _alertSounds.Length)]);
     }
 
     public void setInvestigate(Vector2 targetPos) {
